@@ -1,0 +1,23 @@
+@use '../styles/variables.scss' as var;
+
+.header {
+  height: 80px;
+  background-color: var.$maincolor;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+
+  @media (max-width: var.$breakpoint-sm) {
+    height: 70px;
+    padding: 0 8px;
+  }
+
+  h1 {
+    cursor: pointer;
+  }
+}
+
+.sign-out-button {
+  color: #ffffff;
+}
