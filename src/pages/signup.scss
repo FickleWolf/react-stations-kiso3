@@ -1,0 +1,26 @@
+@use '../styles/variables.scss' as var;
+@import '../styles/mixin.scss';
+
+.signup {
+  @include main-wrapper;
+  max-width: 500px;
+}
+
+.signup-form {
+  @include form;
+}
+
+.email-input,
+.name-input,
+.password-input {
+  @include inputfield;
+}
+
+.signup-button {
+  @include action-button;
+
+  :invalid {
+    cursor: not-allowed;
+    background-color: var.$invalidcolor;
+  }
+}
