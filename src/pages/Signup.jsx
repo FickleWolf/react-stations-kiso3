@@ -4,6 +4,7 @@ import { useCookies } from 'react-cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import Compressor from 'compressorjs';
 import { signIn } from '../app/slices/authSlice';
 import Header from '../components/Header';
 import url from '../const';
@@ -15,6 +16,7 @@ function SignUp() {
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessge] = useState();
   const [, setCookie] = useCookies();
+  const [iconUrl, setIconUrl] = useState(null);
   const { register, handleSubmit, formState } = useForm({
     mode: 'onTouched',
     defaultValues: {
@@ -36,13 +38,57 @@ function SignUp() {
         const { token } = res.data;
         dispatch(signIn());
         setCookie('token', token);
-        navigate('/');
+        if (iconUrl === null) {
+          navigate('/');
+          return;
+        }
+        uploadIcon(token);
       })
       .catch(err => {
         setErrorMessge(`サインアップに失敗しました。 ${err}`);
       });
 
     if (auth) return <Navigate to="/" />;
+  };
+  //画像がアップロードされた際に圧縮する。
+  const handleFileChange = e => {
+    const selectedFile = e.target.files[0];
+    setIconUrl(selectedFile);
+
+    new Compressor(selectedFile, {
+      quality: 0.6,
+      maxWidth: 1024,
+      maxHeight: 1024,
+      success(result) {
+        const compressedFile = new File([result], result.name, {
+          type: result.type,
+        });
+        setIconUrl(compressedFile);
+      },
+      error(err) {
+        setErrorMessge(`アイコン画像の圧縮中にエラーが発生しました。 ${err}`);
+      },
+    });
+  };
+  //画像をPOST送信する。
+  const uploadIcon = token => {
+    axios
+      .post(
+        `${url}/uploads`,
+        { icon },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        navigate('/');
+      })
+      .catch(err => {
+        console.log(`アイコンのアップロードに失敗しました。 ${err}`);
+        navigate('/');
+      });
   };
   return (
     <div>
@@ -54,6 +100,9 @@ function SignUp() {
             {errorMessage}
           </p>
         ) : null}
+        <div>
+          <input type="file" accept="image/*" onChange={handleFileChange} />
+        </div>
         <form className="signup-form" onSubmit={handleSubmit(onSignUp)}>
           <label>メールアドレス</label>
           <br />
@@ -103,7 +152,7 @@ function SignUp() {
             </p>
           ) : null}
           <br />
-          <label>パスワード　(半角英数4文字以上20文字以内)</label>
+          <label>パスワード (半角英数4文字以上20文字以内)</label>
           <br />
           <input
             type="password"

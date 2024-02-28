@@ -2,25 +2,25 @@
 @import '../styles/mixin.scss';
 
 .login {
-    @include main-wrapper;
-    max-width: 500px;
+  @include main-wrapper;
+  max-width: 500px;
 }
 
 .login-form {
-    @include form;
+  @include form;
 }
 
 .email-input,
 .password-input {
-    @include inputfield;
+  @include inputfield;
 }
 
 .login-button {
-    @include action-button;
-    margin-bottom: 16px;
+  @include action-button;
+  margin-bottom: 16px;
 
-    :invalid {
-        cursor: not-allowed;
-        background-color: var.$invalidcolor;
-    }
+  :invalid {
+    cursor: not-allowed;
+    background-color: var.$invalidcolor;
+  }
 }
