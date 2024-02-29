@@ -1,7 +1,7 @@
 import { useCookies } from 'react-cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { signOut } from '../authSlice';
+import { signOut } from '../app/slices/authSlice';
 import './header.scss';
 
 function Header() {

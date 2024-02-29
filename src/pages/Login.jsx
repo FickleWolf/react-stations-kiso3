@@ -5,11 +5,11 @@ import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import Header from '../components/Header';
-import './signin.scss';
+import './logIn.scss';
 import { signIn } from '../app/slices/authSlice';
 import url from '../const';
 
-function Login() {
+function LogIn() {
   const auth = useSelector(state => state.auth.isSignIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -112,4 +112,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LogIn;

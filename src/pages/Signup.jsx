@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import Compressor from 'compressorjs';
+import Compressor from 'compressjs';
 import { signIn } from '../app/slices/authSlice';
 import Header from '../components/Header';
 import url from '../const';
@@ -26,6 +26,51 @@ function SignUp() {
     },
     shouldUnregister: false,
   });
+
+  //画像をPOST送信する。
+  const uploadIcon = token => {
+    axios
+      .post(
+        `${url}/uploads`,
+        { icon: iconUrl },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        navigate('/');
+      })
+      .catch(err => {
+        console.log(`アイコンのアップロードに失敗しました。 ${err}`);
+        navigate('/');
+      });
+  };
+
+  //画像がアップロードされた際に圧縮する。
+  const handleFileChange = e => {
+    const selectedFile = e.target.files[0];
+    setIconUrl(selectedFile);
+
+    const compressor = new Compressor(selectedFile, {
+      quality: 0.6,
+      maxWidth: 1024,
+      maxHeight: 1024,
+      success(result) {
+        const compressedFile = new File([result], result.name, {
+          type: result.type,
+        });
+        setIconUrl(compressedFile);
+      },
+      error(err) {
+        setErrorMessge(`アイコン画像の圧縮中にエラーが発生しました。 ${err}`);
+      },
+    });
+
+    compressor();
+  };
+
   const onSignUp = formData => {
     const data = {
       email: formData.email,
@@ -50,46 +95,7 @@ function SignUp() {
 
     if (auth) return <Navigate to="/" />;
   };
-  //画像がアップロードされた際に圧縮する。
-  const handleFileChange = e => {
-    const selectedFile = e.target.files[0];
-    setIconUrl(selectedFile);
 
-    new Compressor(selectedFile, {
-      quality: 0.6,
-      maxWidth: 1024,
-      maxHeight: 1024,
-      success(result) {
-        const compressedFile = new File([result], result.name, {
-          type: result.type,
-        });
-        setIconUrl(compressedFile);
-      },
-      error(err) {
-        setErrorMessge(`アイコン画像の圧縮中にエラーが発生しました。 ${err}`);
-      },
-    });
-  };
-  //画像をPOST送信する。
-  const uploadIcon = token => {
-    axios
-      .post(
-        `${url}/uploads`,
-        { icon },
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then(() => {
-        navigate('/');
-      })
-      .catch(err => {
-        console.log(`アイコンのアップロードに失敗しました。 ${err}`);
-        navigate('/');
-      });
-  };
   return (
     <div>
       <Header />

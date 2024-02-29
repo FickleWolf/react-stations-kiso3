@@ -1,0 +1,58 @@
+@use './variables.scss' as var;
+
+@mixin main-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 30px auto;
+  padding: 0 16px;
+
+  @media (max-width: var.$breakpoint-md) {
+    margin: 20px auto;
+  }
+
+  @media (max-width: var.$breakpoint-sm) {
+    padding: 0 8px;
+  }
+}
+
+@mixin form {
+  width: 100%;
+  color: #555555;
+
+  label {
+    font-size: 1rem;
+
+    @media (max-width: var.$breakpoint-md) {
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: var.$breakpoint-sm) {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@mixin inputfield {
+  padding: 0 4px;
+  width: 100%;
+  height: 24px;
+  margin-bottom: 25px;
+  box-sizing: border-box;
+}
+
+@mixin action-button {
+  background-color: var.$maincolor;
+  color: #ffffff;
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+}
+
+@mixin delete-button {
+  color: #ff3333;
+  border: solid 1px #ff3333;
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+}
