@@ -53,55 +53,56 @@ function LogIn() {
           </p>
         ) : null}
         <form className="login-form" onSubmit={handleSubmit(onLogin)}>
-          <label>メールアドレス</label>
+          <label>メールアドレス
+            <br />
+            <input
+              type="email"
+              className="email-input"
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: 'メールアドレスの入力は必須です。',
+                },
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: '有効なメールアドレスを入力してください。',
+                },
+              })}
+            />
+            {formState.errors.password ? (
+              <p className="error-message" role="alert">
+                {formState.errors.email && formState.errors.email.message}
+              </p>
+            ) : null}
+          </label>
           <br />
-          <input
-            type="email"
-            className="email-input"
-            {...register('email', {
-              required: {
-                value: true,
-                message: 'メールアドレスの入力は必須です。',
-              },
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: '有効なメールアドレスを入力してください。',
-              },
-            })}
-          />
-          {formState.errors.password ? (
-            <p className="error-message" role="alert">
-              {formState.errors.email && formState.errors.email.message}
-            </p>
-          ) : null}
-          <br />
-          <label>パスワード</label>
-          <br />
-          <input
-            type="password"
-            className="password-input"
-            {...register('password', {
-              required: {
-                value: true,
-                message: 'パスワードの入力は必須です。',
-              },
-              pattern: {
-                value: /^[a-z\d]{4,20}$/i,
-                message:
-                  'パスワードは半角英数4文字以上20文字以内で入力してください。',
-              },
-            })}
-          />
-          {formState.errors.password ? (
-            <p className="error-message" role="alert">
-              {formState.errors.password && formState.errors.email.password}
-            </p>
-          ) : null}
+          <label>パスワード
+            <br />
+            <input
+              type="password"
+              className="password-input"
+              {...register('password', {
+                required: {
+                  value: true,
+                  message: 'パスワードの入力は必須です。',
+                },
+                pattern: {
+                  value: /^[a-z\d]{4,20}$/i,
+                  message:
+                    'パスワードは半角英数4文字以上20文字以内で入力してください。',
+                },
+              })}
+            />
+            {formState.errors.password ? (
+              <p className="error-message" role="alert">
+                {formState.errors.password && formState.errors.email.password}
+              </p>
+            ) : null}
+          </label>
           <br />
           <button
             type="submit"
             className="login-button"
-            disabled={!formState.isValid}
           >
             ログイン
           </button>

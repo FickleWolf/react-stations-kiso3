@@ -8,11 +8,11 @@ function Header() {
   const auth = useSelector(state => state.auth.isSignIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [, removeCookie] = useCookies();
+  const [, , removeCookie] = useCookies();
   const handleSignOut = () => {
     dispatch(signOut());
     removeCookie('token');
-    navigate('/signin');
+    navigate('/login');
   };
 
   return (

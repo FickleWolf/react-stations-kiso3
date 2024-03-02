@@ -28,6 +28,7 @@
         "no-console": "off",
         "jsx-a11y/click-events-have-key-events": "off",
         "react/jsx-props-no-spreading": "off",
-        "spaced-comment": "off"
+        "spaced-comment": "off",
+        "no-new": "off"
     }
 }

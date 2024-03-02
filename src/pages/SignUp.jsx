@@ -2,9 +2,9 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import Compressor from 'compressjs';
+import Compressor from 'compressorjs';
 import { signIn } from '../app/slices/authSlice';
 import Header from '../components/Header';
 import url from '../const';
@@ -16,7 +16,7 @@ function SignUp() {
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessge] = useState();
   const [, setCookie] = useCookies();
-  const [iconUrl, setIconUrl] = useState(null);
+  const [iconData, setIconData] = useState(null);
   const { register, handleSubmit, formState } = useForm({
     mode: 'onTouched',
     defaultValues: {
@@ -29,10 +29,13 @@ function SignUp() {
 
   //画像をPOST送信する。
   const uploadIcon = token => {
+    const formData = new FormData();
+    formData.append('icon', iconData, iconData.name);
+
     axios
       .post(
         `${url}/uploads`,
-        { icon: iconUrl },
+        formData,
         {
           headers: {
             authorization: `Bearer ${token}`,
@@ -49,26 +52,24 @@ function SignUp() {
   };
 
   //画像がアップロードされた際に圧縮する。
-  const handleFileChange = e => {
-    const selectedFile = e.target.files[0];
-    setIconUrl(selectedFile);
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
 
-    const compressor = new Compressor(selectedFile, {
+    if (!file) return;
+
+    new Compressor(file, {
       quality: 0.6,
-      maxWidth: 1024,
-      maxHeight: 1024,
+      maxWidth: 800,
+      maxHeight: 600,
+      convertSize: 5000000,
+      mimeType: 'image/jpeg',
       success(result) {
-        const compressedFile = new File([result], result.name, {
-          type: result.type,
-        });
-        setIconUrl(compressedFile);
+        setIconData(result);
       },
-      error(err) {
-        setErrorMessge(`アイコン画像の圧縮中にエラーが発生しました。 ${err}`);
+      error(error) {
+        console.error('Compression failed:', error);
       },
     });
-
-    compressor();
   };
 
   const onSignUp = formData => {
@@ -83,7 +84,7 @@ function SignUp() {
         const { token } = res.data;
         dispatch(signIn());
         setCookie('token', token);
-        if (iconUrl === null) {
+        if (iconData === null) {
           navigate('/');
           return;
         }
@@ -101,13 +102,14 @@ function SignUp() {
       <Header />
       <main className="signup">
         <h2>新規作成</h2>
+        {iconData !== null ? <img src={URL.createObjectURL(iconData)} alt="upload-icon"/> : null}
         {errorMessage !== '' ? (
           <p className="error-message" role="alert">
             {errorMessage}
           </p>
         ) : null}
         <div>
-          <input type="file" accept="image/*" onChange={handleFileChange} />
+          <input type="file" accept=".jpeg,.png" onChange={handleFileChange} />
         </div>
         <form className="signup-form" onSubmit={handleSubmit(onSignUp)}>
           <label>メールアドレス</label>
@@ -189,6 +191,7 @@ function SignUp() {
             作成
           </button>
         </form>
+        <Link to="/login">ログイン</Link>
       </main>
     </div>
   );

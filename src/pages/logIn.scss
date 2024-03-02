@@ -19,7 +19,7 @@
   @include action-button;
   margin-bottom: 16px;
 
-  :invalid {
+  &:invalid {
     cursor: not-allowed;
     background-color: var.$invalidcolor;
   }
