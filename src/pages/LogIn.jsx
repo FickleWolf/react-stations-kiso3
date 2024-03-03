@@ -7,6 +7,7 @@ import axios from 'axios';
 import Header from '../components/Header';
 import './logIn.scss';
 import { signIn } from '../app/slices/authSlice';
+import { setUserInfo } from '../app/slices/userInfoSlice';
 import url from '../const';
 
 function LogIn() {
@@ -33,6 +34,7 @@ function LogIn() {
       .then(res => {
         setCookie('token', res.data.token);
         dispatch(signIn());
+        dispatch(setUserInfo());
         navigate('/');
       })
       .catch(err => {

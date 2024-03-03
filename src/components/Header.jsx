@@ -2,18 +2,23 @@ import { useCookies } from 'react-cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from '../app/slices/authSlice';
+import { removeUserInfo } from '../app/slices/userInfoSlice';
 import './header.scss';
 
 function Header() {
   const auth = useSelector(state => state.auth.isSignIn);
+  const userInfo = useSelector(state => state.userInfo.info);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [, , removeCookie] = useCookies();
   const handleSignOut = () => {
     dispatch(signOut());
+    dispatch(removeUserInfo());
     removeCookie('token');
     navigate('/login');
   };
+
+  console.log(userInfo);
 
   return (
     <header className="header">
