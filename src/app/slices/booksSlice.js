@@ -6,7 +6,7 @@ import url from '../../const';
 
 const cookie = new Cookies();
 
-// ユーザー情報を非同期で取得する関数
+// bookReviewを非同期で取得する関数
 export const getBooks = async () => {
     const token = cookie.get('token');
     const books = useSelector(state => state.books.books);
