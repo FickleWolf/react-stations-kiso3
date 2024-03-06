@@ -34,7 +34,7 @@ export const userInfoSlice = createSlice({
     setUserInfo: (state, action) => {
       state.userInfo = action.payload;
     },
-    removeUserInfo: (state) => {
+    removeUserInfo: state => {
       state.userInfo = undefined;
     },
   },

@@ -1,0 +1,7 @@
+@use '../styles/variables.scss' as var;
+@import '../styles/mixin.scss';
+
+.home {
+  @include main-wrapper;
+  max-width: 500px;
+}

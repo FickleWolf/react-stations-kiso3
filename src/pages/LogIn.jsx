@@ -55,7 +55,8 @@ function LogIn() {
           </p>
         ) : null}
         <form className="login-form" onSubmit={handleSubmit(onLogin)}>
-          <label>メールアドレス
+          <label>
+            メールアドレス
             <br />
             <input
               type="email"
@@ -78,7 +79,8 @@ function LogIn() {
             ) : null}
           </label>
           <br />
-          <label>パスワード
+          <label>
+            パスワード
             <br />
             <input
               type="password"
@@ -102,10 +104,7 @@ function LogIn() {
             ) : null}
           </label>
           <br />
-          <button
-            type="submit"
-            className="login-button"
-          >
+          <button type="submit" className="login-button">
             ログイン
           </button>
         </form>

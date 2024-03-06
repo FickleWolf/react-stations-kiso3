@@ -33,15 +33,11 @@ function SignUp() {
     formData.append('icon', iconData, iconData.name);
 
     axios
-      .post(
-        `${url}/uploads`,
-        formData,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post(`${url}/uploads`, formData, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
       .then(() => {
         navigate('/');
       })
@@ -52,7 +48,7 @@ function SignUp() {
   };
 
   //画像がアップロードされた際に圧縮する。
-  const handleFileChange = (event) => {
+  const handleFileChange = event => {
     const file = event.target.files[0];
 
     if (!file) return;
@@ -102,7 +98,9 @@ function SignUp() {
       <Header />
       <main className="signup">
         <h2>新規作成</h2>
-        {iconData !== null ? <img src={URL.createObjectURL(iconData)} alt="upload-icon"/> : null}
+        {iconData !== null ? (
+          <img src={URL.createObjectURL(iconData)} alt="upload-icon" />
+        ) : null}
         {errorMessage !== '' ? (
           <p className="error-message" role="alert">
             {errorMessage}

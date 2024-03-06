@@ -4,6 +4,10 @@ import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
 import LogIn from '../pages/LogIn';
 import SignUp from '../pages/SignUp';
+import Detail from '../pages/Detail';
+import Edit from '../pages/Edit';
+import Profile from '../pages/Profile';
+import New from '../pages/New';
 
 function Router() {
   const auth = useSelector(state => state.auth.isSignIn);
@@ -11,10 +15,17 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route exact path="/" element={<Home />} />
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/login" element={<LogIn />} />
+        <Route exact path="/detail/:id" element={<Detail />} />
         {auth ? (
-          <Route exact path="/" element={<Home />} />
+          <>
+            <Home />
+            <Route exact path="/edit/:id" element={<Edit />} />
+            <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/new" element={<New />} />
+          </>
         ) : (
           <Route
             path="/"

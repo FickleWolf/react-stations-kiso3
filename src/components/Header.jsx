@@ -18,8 +18,6 @@ function Header() {
     navigate('/login');
   };
 
-  console.log(userInfo);
-
   return (
     <header className="header">
       <h1 onClick={() => navigate('/')}>BookReview</h1>
