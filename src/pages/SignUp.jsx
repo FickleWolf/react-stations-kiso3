@@ -89,9 +89,9 @@ function SignUp() {
       .catch(err => {
         setErrorMessge(`サインアップに失敗しました。 ${err}`);
       });
-
-    if (auth) return <Navigate to="/" />;
   };
+
+  if (auth) return <Navigate to="/" />;
 
   return (
     <div>
