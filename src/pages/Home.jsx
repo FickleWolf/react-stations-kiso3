@@ -1,26 +1,29 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addBooksAsync } from '../app/slices/booksSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenNib } from '@fortawesome/free-solid-svg-icons';
 import Header from '../components/Header';
+import Pagenaion from '../components/Pagenation';
 import './home.scss';
 
 function Home() {
-  const books = useSelector(state => state.books.books);
-  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth.isSignIn);
+  const [displyBooks, setDisplyBooks] = useState([]);
 
   return (
     <div>
       <Header />
       <div className="home">
-        <Books books={books} />
-        <button
-          onClick={() => {
-            dispatch(addBooksAsync());
-          }}
-          type="button"
-        >
-          もっとみる
-        </button>
+        <Books books={displyBooks} />
+        <Pagenaion setDisplyBooks={setDisplyBooks} />
+        {auth ? (
+          <div className="float">
+            <button className="float__button" type="button">
+              <FontAwesomeIcon icon={faPenNib} className="float__button-icon" />
+            </button>
+          </div>
+        ) : null}
       </div>
     </div>
   );
@@ -34,31 +37,26 @@ function Books(props) {
   return (
     <div className="books">
       {books.map((book, key) => (
-        <div key={key} className="books-item">
-          <article
-            className="book-item-link"
-            onClick={() => navigate(`/detail/${book.id}`)}
+        <article
+          key={key}
+          className="book"
+          onClick={() => navigate(`/detail/${book.id}`)}
+        >
+          <div className="book__tittle">{book.title}</div>
+          <div
+            className="book__url"
+            onClick={e => {
+              e.stopPropagation();
+              window.open(book.url, '_blank');
+            }}
+            role="link"
+            tabIndex={0}
           >
-            <div className="book-item-link-item">
-              <span className="book-item-link-item__tittle">{book.title}</span>
-            </div>
-            <div className="book-item-link-item">
-              URL:
-              <a href={book.url} className="book-item-link-item__url">
-                {book.url}
-              </a>
-            </div>
-            <div className="book-item-link-item">
-              レビュワー:
-              <span className="book-item-link-item__reviewer">
-                {book.reviewer}
-              </span>
-            </div>
-            <div className="book-item-link-item">
-              <span className="book-item-link-item__review">{book.review}</span>
-            </div>
-          </article>
-        </div>
+            {book.url}
+          </div>
+          <div className="book__review">{book.review}</div>
+          <div className="book__reviewer">{book.reviewer}</div>
+        </article>
       ))}
     </div>
   );

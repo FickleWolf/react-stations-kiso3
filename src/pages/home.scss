@@ -3,5 +3,85 @@
 
 .home {
   @include main-wrapper;
+  position: relative;
   max-width: 1000px;
+}
+
+.float {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+}
+
+.float__button {
+  width: 50px;
+  height: 50px;
+  background-color: var.$maincolor;
+  border-radius: 100%;
+}
+
+.float__button-icon {
+  width: 50%;
+  height: 50%;
+  color: var.$subcolor;
+}
+
+.books {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.book {
+  cursor: pointer;
+  width: calc(50% - 4px);
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  padding: 16px;
+  box-sizing: border-box;
+  background-color: #ececec;
+  border-radius: 8px;
+}
+
+.book__url {
+  color: #1a0dab;
+  text-decoration: underline;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  display: block;
+  height: 1.2rem;
+}
+
+.book__tittle {
+  font-weight: bold;
+  height: 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.book__review {
+  font-size: 14px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 1.2rem;
+  height: 2.4rem;
+  vertical-align: middle;
+}
+
+.book__reviewer {
+  font-size: 13px;
+  width: 100%;
+  text-align: end;
+  height: 1.2rem;
 }

@@ -28,9 +28,8 @@ function Header() {
   };
 
   useEffect(() => {
-    console.log(userInfo);
     dispatch(setBooksAsync());
-  }, []);
+  }, [userInfo]);
 
   const isAuthPage = () => {
     const authPagesPathName = ['/login', '/signup'];
@@ -41,16 +40,16 @@ function Header() {
     <header className="header">
       <h1 onClick={() => navigate('/')}>BookReview</h1>
       {!isAuthPage() ? (
-        <div className="header__button-group">
+        <div className="button-group">
           {auth && userInfo ? (
             <>
               <button
-                onClick={() => navigate('/pofile')}
-                className="header__button-group__button"
+                onClick={() => navigate('/profile')}
+                className="button-group__button"
                 type="button"
               >
                 <img
-                  className="header__button-group__button__img"
+                  className="button-group__img"
                   src={
                     userInfo.iconUrl
                       ? userInfo.iconUrl
@@ -58,25 +57,29 @@ function Header() {
                   }
                   alt="user-icon"
                 />
-                <span className="header__button-group__button__text">
-                  {userInfo.name}
-                </span>
+                <span className="button-group__text">{userInfo.name}</span>
               </button>
               <button
                 onClick={handleSignOut}
-                className="header__button-group__button"
+                className="button-group__button"
                 type="button"
               >
-                <FontAwesomeIcon icon={faRightFromBracket} />
+                <FontAwesomeIcon
+                  className="button-group__icon"
+                  icon={faRightFromBracket}
+                />
               </button>
             </>
           ) : (
             <button
               onClick={() => navigate('/login')}
-              className="header__button-group__button"
+              className="button-group__button"
               type="button"
             >
-              <FontAwesomeIcon icon={faRightToBracket} />
+              <FontAwesomeIcon
+                className="button-group__icon"
+                icon={faRightToBracket}
+              />
             </button>
           )}
         </div>

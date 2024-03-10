@@ -1,0 +1,36 @@
+@use '../styles/variables.scss' as var;
+
+.pagenation {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 16px;
+}
+
+.pagenation-body {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagenation-body__text {
+  color: var.$maincolor;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.pagenation-body__icon {
+  cursor: pointer;
+  color: var.$maincolor;
+  width: 24px;
+  height: 24px;
+}
+
+.pagenation-body__icon--invalid {
+  color: #a1a1a1;
+  width: 24px;
+  height: 24px;
+}

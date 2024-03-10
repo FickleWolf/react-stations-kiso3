@@ -30,6 +30,7 @@
         "react/jsx-props-no-spreading": "off",
         "spaced-comment": "off",
         "no-new": "off",
-        "jsx-a11y/control-has-associated-label": "off"
+        "jsx-a11y/control-has-associated-label": "off",
+        "react/jsx-no-useless-fragment":"off"
     }
 }
