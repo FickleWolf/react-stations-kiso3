@@ -1,9 +1,9 @@
-import { useParams } from 'react-router-dom';
+//import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import './edit.scss';
 
 function Edit() {
-  const { id } = useParams();
+  //const { id } = useParams();
   return (
     <div>
       <Header />

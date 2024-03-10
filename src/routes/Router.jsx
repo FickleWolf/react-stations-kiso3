@@ -21,7 +21,7 @@ function Router() {
         <Route exact path="/detail/:id" element={<Detail />} />
         {auth ? (
           <>
-            <Home />
+            <Route exact path="/" element={<Home />} />
             <Route exact path="/edit/:id" element={<Edit />} />
             <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/new" element={<New />} />

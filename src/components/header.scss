@@ -20,4 +20,16 @@
 
 .header__button-group__button {
   color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.header__button-group__button__img {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+}
+
+.header__button-group__button__text {
+  font-size: 15px;
 }
