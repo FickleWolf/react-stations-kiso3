@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -10,6 +11,7 @@ import './pagenation.scss';
 
 function Pagnation(props) {
   const [page, setPage] = useState(1);
+  const [cookies, ,] = useCookies();
   const books = useSelector(state => state.books.books);
   const { setDisplyBooks } = props;
   const dispatch = useDispatch();
@@ -38,8 +40,9 @@ function Pagnation(props) {
       setPage(nextPageNum);
       setDisplyBooks(nextPageBooks);
     } else {
+      const { token } = cookies;
       setPage(nextPageNum);
-      dispatch(addBooksAsync());
+      dispatch(addBooksAsync(token));
     }
     window.scrollTo({
       top: 0,

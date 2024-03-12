@@ -28,12 +28,8 @@ function Header() {
 
   useEffect(() => {
     const { token } = cookies;
-    console.log(token);
-    if (token) {
-      console.log("aaa");
-      dispatch(setUserInfoAsync(token));
-    }
-    dispatch(setBooksAsync());
+    dispatch(setUserInfoAsync(token));
+    dispatch(setBooksAsync(token));
   }, [cookies]);
 
   const isAuthPage = () => {

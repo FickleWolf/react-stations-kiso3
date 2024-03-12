@@ -1,9 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Cookies } from 'react-cookie';
 import axios from 'axios';
 import url from '../../const';
-
-const cookie = new Cookies();
 
 // initialStateを定義
 const initialState = {
@@ -46,13 +43,11 @@ export const booksSlice = createSlice({
 });
 
 export const { setBooks, addBooks } = booksSlice.actions;
-export const setBooksAsync = () => async dispatch => {
-  const token = cookie.get('token');
+export const setBooksAsync = token => async dispatch => {
   const books = await fetchBooks(token, 0, []);
   dispatch(setBooks(books));
 };
-export const addBooksAsync = () => async (dispatch, getState) => {
-  const token = cookie.get('token');
+export const addBooksAsync = token => async (dispatch, getState) => {
   const currentBooks = getState().books.books;
   const offset = currentBooks.length;
   const books = await fetchBooks(token, offset, currentBooks);

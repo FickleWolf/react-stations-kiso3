@@ -3,7 +3,7 @@ import axios from 'axios';
 import url from '../../const';
 
 // ユーザー情報を非同期で取得する関数
-export const getUserInfo = async (token) => {
+export const getUserInfo = async token => {
   if (!token) return undefined;
   try {
     const res = await axios.get(`${url}/users`, {
@@ -38,7 +38,7 @@ export const userInfoSlice = createSlice({
 
 export const { setUserInfo, removeUserInfo } = userInfoSlice.actions;
 
-export const setUserInfoAsync = (token) => async (dispatch) => {
+export const setUserInfoAsync = token => async dispatch => {
   const userInfo = await getUserInfo(token);
   dispatch(setUserInfo(userInfo));
 };
