@@ -8,6 +8,10 @@
 
 .login-form {
   @include form;
+  label {
+    display: block;
+    height: 90px;
+  }
 }
 
 .email-input,

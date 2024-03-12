@@ -8,6 +8,11 @@
 
 .signup-form {
   @include form;
+
+  label {
+    display: block;
+    height: 90px;
+  }
 }
 
 .email-input,
@@ -19,9 +24,21 @@
 .signup-button {
   @include action-button;
   margin-bottom: 16px;
+}
 
-  &:disabled {
-    cursor: not-allowed;
-    background: var.$invalidcolor;
+.upload-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+  margin-bottom: 4px;
+
+  @media (max-width: var.$breakpoint-sm) {
+    width: 100px;
+    height: 100px;
   }
+}
+
+.icon-input {
+  margin-bottom: 8px;
+  font-size: 11px;
 }

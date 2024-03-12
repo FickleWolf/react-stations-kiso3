@@ -7,7 +7,7 @@ import axios from 'axios';
 import Header from '../components/Header';
 import './logIn.scss';
 import { signIn } from '../app/slices/authSlice';
-import { setUserInfo } from '../app/slices/userInfoSlice';
+import { setUserInfoAsync } from '../app/slices/userInfoSlice';
 import url from '../const';
 
 function LogIn() {
@@ -34,7 +34,7 @@ function LogIn() {
       .then(res => {
         setCookie('token', res.data.token);
         dispatch(signIn());
-        dispatch(setUserInfo());
+        dispatch(setUserInfoAsync(res.data.token));
         navigate('/');
       })
       .catch(err => {
@@ -49,11 +49,6 @@ function LogIn() {
       <Header />
       <main className="login">
         <h2>ログイン</h2>
-        {errorMessage !== '' ? (
-          <p className="error-message" role="alert">
-            {errorMessage}
-          </p>
-        ) : null}
         <form className="login-form" onSubmit={handleSubmit(onLogin)}>
           <label>
             メールアドレス
@@ -78,7 +73,6 @@ function LogIn() {
               </p>
             ) : null}
           </label>
-          <br />
           <label>
             パスワード
             <br />
@@ -99,16 +93,21 @@ function LogIn() {
             />
             {formState.errors.password ? (
               <p className="error-message" role="alert">
-                {formState.errors.password && formState.errors.email.password}
+                {formState.errors.password && formState.errors.password.message}
               </p>
             ) : null}
           </label>
-          <br />
           <button type="submit" className="login-button">
             ログイン
           </button>
         </form>
         <Link to="/signup">新規作成</Link>
+        <br />
+        {errorMessage !== '' ? (
+          <p className="error-message" role="alert">
+            {errorMessage}
+          </p>
+        ) : null}
       </main>
     </div>
   );

@@ -8,7 +8,7 @@ import {
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import { signOut } from '../app/slices/authSlice';
-import { removeUserInfo } from '../app/slices/userInfoSlice';
+import { setUserInfoAsync, removeUserInfo } from '../app/slices/userInfoSlice';
 import { setBooksAsync } from '../app/slices/booksSlice';
 import './header.scss';
 
@@ -18,18 +18,23 @@ function Header() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [, , removeCookie] = useCookies();
+  const [cookies, , removeCookie] = useCookies();
   const handleSignOut = () => {
     dispatch(signOut());
     dispatch(removeUserInfo());
-    dispatch(setBooksAsync());
     removeCookie('token');
     navigate('/login');
   };
 
   useEffect(() => {
+    const { token } = cookies;
+    console.log(token);
+    if (token) {
+      console.log("aaa");
+      dispatch(setUserInfoAsync(token));
+    }
     dispatch(setBooksAsync());
-  }, [userInfo]);
+  }, [cookies]);
 
   const isAuthPage = () => {
     const authPagesPathName = ['/login', '/signup'];

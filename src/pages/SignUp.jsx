@@ -98,98 +98,108 @@ function SignUp() {
       <Header />
       <main className="signup">
         <h2>新規作成</h2>
-        {iconData !== null ? (
-          <img src={URL.createObjectURL(iconData)} alt="upload-icon" />
-        ) : null}
+        <img
+          className="upload-icon"
+          src={
+            iconData !== null
+              ? URL.createObjectURL(iconData)
+              : '/user_icon_default.png'
+          }
+          alt="upload-icon"
+        />
+        <input
+          className="icon-input"
+          type="file"
+          accept=".jpeg,.png"
+          onChange={handleFileChange}
+        />
+        <form className="signup-form" onSubmit={handleSubmit(onSignUp)}>
+          <label>
+            メールアドレス
+            <br />
+            <input
+              type="email"
+              className="email-input"
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: 'メールアドレスの入力は必須です。',
+                },
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: '有効なメールアドレスを入力してください。',
+                },
+              })}
+            />
+            {formState.errors.email ? (
+              <p className="error-message" role="alert">
+                {formState.errors.email && formState.errors.email.message}
+              </p>
+            ) : null}
+          </label>
+          <label>
+            ユーザ名 (2文字以上10文字以内)
+            <br />
+            <input
+              type="text"
+              className="name-input"
+              {...register('name', {
+                required: {
+                  value: true,
+                  message: 'ユーザーネームの入力は必須です。',
+                },
+                minLength: {
+                  value: 2,
+                  message: 'ユーザーネームは2文字以上で入力してください。',
+                },
+                maxLength: {
+                  value: 10,
+                  message: 'ユーザーネームは10文字以内で入力してください。',
+                },
+              })}
+            />
+            {formState.errors.name ? (
+              <p className="error-message" role="alert">
+                {formState.errors.name && formState.errors.name.message}
+              </p>
+            ) : null}
+          </label>
+          <label>
+            パスワード (半角英数4文字以上20文字以内)
+            <br />
+            <input
+              type="password"
+              className="password-input"
+              {...register('password', {
+                required: {
+                  value: true,
+                  message: 'パスワードの入力は必須です。',
+                },
+                pattern: {
+                  value: /^[a-z\d]{4,20}$/i,
+                  message:
+                    'パスワードは半角英数4文字以上20文字以内で入力してください。',
+                },
+              })}
+            />
+            {formState.errors.password ? (
+              <p className="error-message" role="alert">
+                {formState.errors.password && formState.errors.password.message}
+              </p>
+            ) : null}
+            <br />
+          </label>
+          <button type="submit" className="signup-button">
+            作成
+          </button>
+        </form>
+        <Link to="/login">ログイン</Link>
+        <br />
         {errorMessage !== '' ? (
           <p className="error-message" role="alert">
             {errorMessage}
           </p>
         ) : null}
-        <div>
-          <input type="file" accept=".jpeg,.png" onChange={handleFileChange} />
-        </div>
-        <form className="signup-form" onSubmit={handleSubmit(onSignUp)}>
-          <label>メールアドレス</label>
-          <br />
-          <input
-            type="email"
-            className="email-input"
-            {...register('email', {
-              required: {
-                value: true,
-                message: 'メールアドレスの入力は必須です。',
-              },
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: '有効なメールアドレスを入力してください。',
-              },
-            })}
-          />
-          {formState.errors.email ? (
-            <p className="error-message" role="alert">
-              {formState.errors.email && formState.errors.email.message}
-            </p>
-          ) : null}
-          <br />
-          <label>ユーザ名 (2文字以上10文字以内)</label>
-          <br />
-          <input
-            type="text"
-            className="name-input"
-            {...register('name', {
-              required: {
-                value: true,
-                message: 'ユーザーネームの入力は必須です。',
-              },
-              minLength: {
-                value: 2,
-                message: 'ユーザーネームは2文字以上で入力してください。',
-              },
-              maxLength: {
-                value: 10,
-                message: 'ユーザーネームは10文字以内で入力してください。',
-              },
-            })}
-          />
-          {formState.errors.name ? (
-            <p className="error-message" role="alert">
-              {formState.errors.name && formState.errors.name.message}
-            </p>
-          ) : null}
-          <br />
-          <label>パスワード (半角英数4文字以上20文字以内)</label>
-          <br />
-          <input
-            type="password"
-            className="password-input"
-            {...register('password', {
-              required: {
-                value: true,
-                message: 'パスワードの入力は必須です。',
-              },
-              pattern: {
-                value: /^[a-z\d]{4,20}$/i,
-                message:
-                  'パスワードは半角英数4文字以上20文字以内で入力してください。',
-              },
-            })}
-          />
-          {formState.errors.password ? (
-            <p className="error-message" role="alert">
-              {formState.errors.password && formState.errors.password.message}
-            </p>
-          ) : null}
-          <br />
-          <button
-            type="submit"
-            disabled={!formState.isValid}
-            className="signup-button"
-          >
-            作成
-          </button>
-        </form>
-        <Link to="/login">ログイン</Link>
       </main>
     </div>
   );
