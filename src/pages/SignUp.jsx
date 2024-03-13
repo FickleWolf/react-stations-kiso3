@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import Compressor from 'compressorjs';
 import { signIn } from '../app/slices/authSlice';
 import Header from '../components/Header';
-import url from '../const';
+import baseUrl from '../const';
 import './signUp.scss';
 
 function SignUp() {
@@ -33,7 +33,7 @@ function SignUp() {
     formData.append('icon', iconData, iconData.name);
 
     axios
-      .post(`${url}/uploads`, formData, {
+      .post(`${baseUrl}/uploads`, formData, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -75,7 +75,7 @@ function SignUp() {
       password: formData.password,
     };
     axios
-      .post(`${url}/users`, data)
+      .post(`${baseUrl}/users`, data)
       .then(res => {
         const { token } = res.data;
         dispatch(signIn());

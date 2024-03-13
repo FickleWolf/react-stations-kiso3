@@ -1,11 +1,12 @@
 @use '../styles/variables.scss' as var;
 
 .loading {
-  margin: 0 auto;
+  width: 100vw;
   padding-top: 120px;
 }
 
 .lading__loader {
+  margin: 0 auto;
   width: 50px;
   padding: 8px;
   aspect-ratio: 1;
@@ -18,6 +19,7 @@
   mask-composite: subtract;
   animation: l3 1s infinite linear;
 }
+
 @keyframes l3 {
   to {
     transform: rotate(1turn);

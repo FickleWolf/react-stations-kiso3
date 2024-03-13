@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import url from '../../const';
+import baseUrl from '../../const';
 
 // initialStateを定義
 const initialState = {
@@ -11,7 +11,7 @@ const initialState = {
 export const fetchBooks = async (token, offset, currentBooks) => {
   if (!token) {
     try {
-      const res = await axios.get(`${url}/public/books?offset=${offset}`);
+      const res = await axios.get(`${baseUrl}/public/books?offset=${offset}`);
       return [...currentBooks, ...res.data];
     } catch (error) {
       console.error('Error fetching user info:', error);
@@ -19,7 +19,7 @@ export const fetchBooks = async (token, offset, currentBooks) => {
     }
   } else {
     try {
-      const res = await axios.get(`${url}/books?offset=${offset}`, {
+      const res = await axios.get(`${baseUrl}/books?offset=${offset}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },

@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import Compressor from 'compressorjs';
 import { setUserInfoAsync } from '../app/slices/userInfoSlice';
 import Header from '../components/Header';
-import url from '../const';
+import baseUrl from '../const';
 import './profile.scss';
 
 function Profile() {
@@ -40,7 +40,7 @@ function Profile() {
     formData.append('icon', iconData, iconData.name);
 
     axios
-      .post(`${url}/uploads`, formData, {
+      .post(`${baseUrl}/uploads`, formData, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -81,7 +81,7 @@ function Profile() {
       name: formData.name,
     };
     axios
-      .put(`${url}/users`, data, {
+      .put(`${baseUrl}/users`, data, {
         headers: {
           authorization: `Bearer ${token}`,
         },

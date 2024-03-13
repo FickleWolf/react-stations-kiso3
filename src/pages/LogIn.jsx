@@ -8,7 +8,7 @@ import Header from '../components/Header';
 import './logIn.scss';
 import { signIn } from '../app/slices/authSlice';
 import { setUserInfoAsync } from '../app/slices/userInfoSlice';
-import url from '../const';
+import baseUrl from '../const';
 
 function LogIn() {
   const auth = useSelector(state => state.auth.isSignIn);
@@ -30,7 +30,7 @@ function LogIn() {
       password: formData.password,
     };
     axios
-      .post(`${url}/signin`, data)
+      .post(`${baseUrl}/signin`, data)
       .then(res => {
         setCookie('token', res.data.token);
         dispatch(signIn());

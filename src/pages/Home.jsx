@@ -1,11 +1,14 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenNib, faFlag } from '@fortawesome/free-solid-svg-icons';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import Pagenaion from '../components/Pagenation';
+import baseUrl from '../const';
 import './home.scss';
 
 function Home() {
@@ -37,8 +40,30 @@ function Home() {
 
 function Books(props) {
   const { books, auth } = props;
+  const [cookies, ,] = useCookies();
   const navigate = useNavigate();
   if (!books || books.length === 0) return <Loading />;
+
+  const sendLog = id => {
+    const { token } = cookies;
+    const data = {
+      selectBookId: id,
+    };
+
+    axios
+      .post(`${baseUrl}/logs`, data, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        navigate(`/detail/${id}`);
+      })
+      .catch(err => {
+        console.log(`ログの送信に失敗しました。 ${err}`);
+        alert(`ログの送信に失敗しました。 ${err}`);
+      });
+  };
 
   return (
     <div className="books">
@@ -48,7 +73,7 @@ function Books(props) {
           className="book"
           onClick={() => {
             if (!auth) return;
-            navigate(`/detail/${book.id}`);
+            sendLog(book.id);
           }}
         >
           {book.isMine ? (

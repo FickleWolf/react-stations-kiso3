@@ -6,7 +6,7 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { setBooksAsync } from '../app/slices/booksSlice';
 import Header from '../components/Header';
-import url from '../const';
+import baseUrl from '../const';
 import './new.scss';
 
 function New() {
@@ -35,7 +35,7 @@ function New() {
       review: formData.review,
     };
     axios
-      .post(`${url}/books`, data, {
+      .post(`${baseUrl}/books`, data, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -61,7 +61,7 @@ function New() {
             タイトル
             <br />
             <input
-              type="title"
+              type="text"
               className="title-input"
               {...register('title', {
                 required: {

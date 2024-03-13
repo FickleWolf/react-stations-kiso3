@@ -1,0 +1,84 @@
+@use '../styles/variables.scss' as var;
+@import '../styles/mixin.scss';
+
+.detail {
+  @include main-wrapper;
+  position: relative;
+  max-width: 500px;
+}
+
+.detail-body {
+  @include form;
+
+  label {
+    display: block;
+  }
+}
+
+.float {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+}
+
+.float__button {
+  width: 50px;
+  height: 50px;
+  background-color: var.$maincolor;
+  border-radius: 100%;
+}
+
+.float__button-icon {
+  width: 50%;
+  height: 50%;
+  color: var.$subcolor;
+}
+
+.title-text {
+  font-size: 17px;
+  font-weight: bold;
+  width: 100%;
+
+  @media (max-width: var.$breakpoint-md) {
+    font-size: 15px;
+  }
+
+  @media (max-width: var.$breakpoint-sm) {
+    font-size: 13px;
+  }
+}
+
+.url-text {
+  cursor: pointer;
+  color: #1a0dab;
+  text-decoration: underline;
+  font-size: 14px;
+  width: 100%;
+  display: block;
+  height: 1.2rem;
+
+  @media (max-width: var.$breakpoint-md) {
+    font-size: 13px;
+  }
+
+  @media (max-width: var.$breakpoint-sm) {
+    font-size: 11px;
+  }
+}
+
+.detail-text,
+.review-text,
+.reviewer-text {
+  font-size: 14px;
+  overflow: hidden;
+  line-height: 1.2rem;
+  width: 100%;
+
+  @media (max-width: var.$breakpoint-md) {
+    font-size: 13px;
+  }
+
+  @media (max-width: var.$breakpoint-sm) {
+    font-size: 11px;
+  }
+}

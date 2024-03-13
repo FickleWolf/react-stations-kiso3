@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import url from '../../const';
+import baseUrl from '../../const';
 
 // ユーザー情報を非同期で取得する関数
 export const getUserInfo = async token => {
   if (!token) return undefined;
   try {
-    const res = await axios.get(`${url}/users`, {
+    const res = await axios.get(`${baseUrl}/users`, {
       headers: {
         authorization: `Bearer ${token}`,
       },
