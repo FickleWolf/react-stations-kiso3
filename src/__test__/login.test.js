@@ -12,6 +12,12 @@ const store = mockStore({
   auth: {
     isSignIn: false,
   },
+  userInfo:{
+    info:{
+      name:'Test',
+      iconUrl:""
+    }
+  }
 });
 
 describe('LogIn Component', () => {

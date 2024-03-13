@@ -26,12 +26,6 @@ function Header() {
     navigate('/login');
   };
 
-  useEffect(() => {
-    const { token } = cookies;
-    dispatch(setUserInfoAsync(token));
-    dispatch(setBooksAsync(token));
-  }, [cookies]);
-
   const isAuthPage = () => {
     const authPagesPathName = ['/login', '/signup'];
     return authPagesPathName.includes(location.pathname);
