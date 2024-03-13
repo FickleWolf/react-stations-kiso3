@@ -1,0 +1,46 @@
+@use '../styles/variables.scss' as var;
+@import '../styles/mixin.scss';
+
+.new {
+  @include main-wrapper;
+  max-width: 500px;
+}
+
+.new-form {
+  @include form;
+
+  .title-label,
+  .url-label {
+    display: block;
+    height: 80px;
+  }
+
+  .detail-label,
+  .review-label {
+    display: block;
+    height: 140px;
+  }
+}
+
+.title-input,
+.url-input,
+.detail-input,
+.review-input {
+  @include inputfield;
+}
+
+.detail-input,
+.review-input {
+  padding: 4px;
+  height: 80px;
+}
+
+.new-button {
+  @include action-button;
+  margin-bottom: 16px;
+}
+
+.icon-input {
+  margin-bottom: 8px;
+  font-size: 11px;
+}

@@ -45,6 +45,27 @@
   box-sizing: border-box;
   background-color: #ececec;
   border-radius: 8px;
+  position: relative;
+
+  @media (max-width: var.$breakpoint-md) {
+    width: 100%;
+    row-gap: 6px;
+  }
+
+  @media (max-width: var.$breakpoint-sm) {
+    font-size: 11px;
+    row-gap: 4px;
+  }
+}
+
+.book__ismine {
+  color: var.$maincolor;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  z-index: 9;
 }
 
 .book__url {
@@ -57,31 +78,63 @@
   width: 100%;
   display: block;
   height: 1.2rem;
+
+  @media (max-width: var.$breakpoint-md) {
+    font-size: 13px;
+  }
+
+  @media (max-width: var.$breakpoint-sm) {
+    font-size: 11px;
+  }
 }
 
 .book__tittle {
+  font-size: 17px;
   font-weight: bold;
   height: 1.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
+
+  @media (max-width: var.$breakpoint-md) {
+    font-size: 15px;
+  }
+
+  @media (max-width: var.$breakpoint-sm) {
+    font-size: 13px;
+  }
 }
 
-.book__review {
+.book__detail {
   font-size: 14px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 5;
   line-height: 1.2rem;
-  height: 2.4rem;
-  vertical-align: middle;
+  height: 6rem;
+
+  @media (max-width: var.$breakpoint-md) {
+    font-size: 13px;
+  }
+
+  @media (max-width: var.$breakpoint-sm) {
+    font-size: 11px;
+  }
 }
 
 .book__reviewer {
-  font-size: 13px;
+  font-size: 14px;
   width: 100%;
   text-align: end;
   height: 1.2rem;
+
+  @media (max-width: var.$breakpoint-md) {
+    font-size: 13px;
+  }
+
+  @media (max-width: var.$breakpoint-sm) {
+    font-size: 11px;
+  }
 }

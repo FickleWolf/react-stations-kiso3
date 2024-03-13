@@ -81,7 +81,7 @@ function Profile() {
       name: formData.name,
     };
     axios
-      .put(`${url}users`, data, {
+      .put(`${url}/users`, data, {
         headers: {
           authorization: `Bearer ${token}`,
         },

@@ -56,28 +56,32 @@ function Pagnation(props) {
   }, [books]);
 
   return (
-    <div className="pagenation">
-      <div className="pagenation-body">
-        <FontAwesomeIcon
-          className={
-            page > 1
-              ? 'pagenation-body__icon'
-              : 'pagenation-body__icon--invalid'
-          }
-          icon={faChevronLeft}
-          onClick={() => {
-            if (page <= 1) return;
-            prevPage();
-          }}
-        />
-        <p className="pagenation-body__text">{page}</p>
-        <FontAwesomeIcon
-          className="pagenation-body__icon"
-          icon={faChevronRight}
-          onClick={() => nextPage()}
-        />
-      </div>
-    </div>
+    <>
+      {books.length > 0 ? (
+        <div className="pagenation">
+          <div className="pagenation-body">
+            <FontAwesomeIcon
+              className={
+                page > 1
+                  ? 'pagenation-body__icon'
+                  : 'pagenation-body__icon--invalid'
+              }
+              icon={faChevronLeft}
+              onClick={() => {
+                if (page <= 1) return;
+                prevPage();
+              }}
+            />
+            <p className="pagenation-body__text">{page}</p>
+            <FontAwesomeIcon
+              className="pagenation-body__icon"
+              icon={faChevronRight}
+              onClick={() => nextPage()}
+            />
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 }
 

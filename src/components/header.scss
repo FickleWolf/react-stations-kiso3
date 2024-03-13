@@ -6,7 +6,7 @@
   color: #ffffff;
   display: flex;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 0 12px;
   position: fixed;
   top: 0;
   box-sizing: border-box;
@@ -28,6 +28,10 @@
   flex-direction: row;
   align-items: center;
   column-gap: 16px;
+
+  @media (max-width: var.$breakpoint-md) {
+    column-gap: 12px;
+  }
 }
 
 .button-group__button {
@@ -42,13 +46,43 @@
   width: 32px;
   height: 32px;
   border-radius: 100%;
+
+  @media (max-width: var.$breakpoint-md) {
+    width: 30px;
+    height: 30px;
+  }
+
+  @media (max-width: var.$breakpoint-sm) {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 .button-group__text {
-  font-size: 18px;
+  font-size: 14px;
+  max-width: 84px;
+
+  @media (max-width: var.$breakpoint-md) {
+    font-size: 12px;
+    max-width: 72px;
+  }
+
+  @media (max-width: var.$breakpoint-sm) {
+    display: none;
+  }
 }
 
 .button-group__icon {
   width: 24px;
   height: 24px;
+
+  @media (max-width: var.$breakpoint-md) {
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (max-width: var.$breakpoint-sm) {
+    width: 20px;
+    height: 20px;
+  }
 }

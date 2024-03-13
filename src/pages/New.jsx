@@ -4,9 +4,9 @@ import { useCookies } from 'react-cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { setBooksAsync } from '../app/slices/booksSlice';
 import Header from '../components/Header';
 import url from '../const';
-import Header from '../components/Header';
 import './new.scss';
 
 function New() {
@@ -18,7 +18,7 @@ function New() {
   const { register, handleSubmit, formState } = useForm({
     mode: 'onTouched',
     defaultValues: {
-      tittle: '',
+      title: '',
       url: '',
       detail: '',
       review: '',
@@ -27,34 +27,29 @@ function New() {
   });
 
   const onCreateReview = formData => {
+    const { token } = cookies;
     const data = {
-      tittle: formData.tittle,
+      title: formData.title,
       url: formData.url,
       detail: formData.detail,
       review: formData.review,
     };
     axios
-      .post(`${url}users`, data, {
+      .post(`${url}/books`, data, {
         headers: {
           authorization: `Bearer ${token}`,
         },
       })
-      .then(res => {
-        const { token } = res.data;
-        dispatch(signIn());
-        setCookie('token', token);
-        if (iconData === null) {
-          navigate('/');
-          return;
-        }
-        uploadIcon(token);
+      .then(() => {
+        dispatch(setBooksAsync(token));
+        navigate('/');
       })
       .catch(err => {
-        setErrorMessge(`サインアップに失敗しました。 ${err}`);
+        setErrorMessge(`投稿に失敗しました。 ${err}`);
       });
   };
 
-  if (auth) return <Navigate to="/" />;
+  if (!auth) return <Navigate to="/" />;
 
   return (
     <div>
@@ -62,26 +57,26 @@ function New() {
       <main className="new">
         <h2>新しいレビューの作成</h2>
         <form className="new-form" onSubmit={handleSubmit(onCreateReview)}>
-          <label>
+          <label className="title-label">
             タイトル
             <br />
             <input
-              type="tittle"
-              className="tittle-input"
-              {...register('tittle', {
+              type="title"
+              className="title-input"
+              {...register('title', {
                 required: {
                   value: true,
                   message: 'タイトルの入力は必須です。',
                 },
               })}
             />
-            {formState.errors.tittle ? (
+            {formState.errors.title ? (
               <p className="error-message" role="alert">
-                {formState.errors.tittle && formState.errors.tittle.message}
+                {formState.errors.title && formState.errors.title.message}
               </p>
             ) : null}
           </label>
-          <label>
+          <label className="url-label">
             URL
             <br />
             <input
@@ -98,13 +93,13 @@ function New() {
                 },
               })}
             />
-            {formState.errors.name ? (
+            {formState.errors.url ? (
               <p className="error-message" role="alert">
                 {formState.errors.url && formState.errors.url.message}
               </p>
             ) : null}
           </label>
-          <label>
+          <label className="detail-label">
             詳細
             <br />
             <textarea
@@ -114,7 +109,7 @@ function New() {
                 required: {
                   value: true,
                   message: '詳細の入力は必須です。',
-                }
+                },
               })}
             />
             {formState.errors.detail ? (
@@ -124,7 +119,7 @@ function New() {
             ) : null}
             <br />
           </label>
-          <label>
+          <label className="review-label">
             レビュー
             <br />
             <textarea
@@ -134,7 +129,7 @@ function New() {
                 required: {
                   value: true,
                   message: 'レビューの入力は必須です。',
-                }
+                },
               })}
             />
             {formState.errors.review ? (

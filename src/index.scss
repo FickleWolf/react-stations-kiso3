@@ -34,11 +34,11 @@ h1 {
   align-items: center;
 
   @media (max-width: var.$breakpoint-md) {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
   }
 
   @media (max-width: var.$breakpoint-sm) {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 }
 

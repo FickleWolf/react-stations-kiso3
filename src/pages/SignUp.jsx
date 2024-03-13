@@ -154,7 +154,7 @@ function SignUp() {
                 },
                 maxLength: {
                   value: 10,
-                  message: 'ユーザーネームは10文字以内で入力してください。',
+                  message: 'ユーザーネームは5文字以内で入力してください。',
                 },
               })}
             />
