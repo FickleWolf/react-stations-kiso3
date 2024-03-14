@@ -66,7 +66,7 @@ function Books(props) {
   };
 
   return (
-    <div className="books">
+    <div className="home-body">
       {books.map((book, key) => (
         <article
           key={key}
@@ -79,7 +79,7 @@ function Books(props) {
           {book.isMine ? (
             <FontAwesomeIcon className="book__ismine" icon={faFlag} />
           ) : null}
-          <div className="book__tittle">{book.title}</div>
+          <div className="book__title">{book.title}</div>
           <div
             className="book__url"
             onClick={e => {

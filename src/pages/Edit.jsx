@@ -68,7 +68,7 @@ function Edit() {
       review: formData.review,
     };
     axios
-      .put(`${baseUrl}/books`, data, {
+      .put(`${baseUrl}/books/${id}`, data, {
         headers: {
           authorization: `Bearer ${token}`,
         },

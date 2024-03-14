@@ -7,26 +7,7 @@
   max-width: 1000px;
 }
 
-.float {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
-}
-
-.float__button {
-  width: 50px;
-  height: 50px;
-  background-color: var.$maincolor;
-  border-radius: 100%;
-}
-
-.float__button-icon {
-  width: 50%;
-  height: 50%;
-  color: var.$subcolor;
-}
-
-.books {
+.home-body {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -56,85 +37,104 @@
     font-size: 11px;
     row-gap: 4px;
   }
+
+  &__title {
+    font-size: 17px;
+    font-weight: bold;
+    height: 1.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+
+    @media (max-width: var.$breakpoint-md) {
+      font-size: 15px;
+    }
+
+    @media (max-width: var.$breakpoint-sm) {
+      font-size: 13px;
+    }
+  }
+
+  &__url {
+    color: #1a0dab;
+    text-decoration: underline;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    display: block;
+    height: 1.2rem;
+
+    @media (max-width: var.$breakpoint-md) {
+      font-size: 13px;
+    }
+
+    @media (max-width: var.$breakpoint-sm) {
+      font-size: 11px;
+    }
+  }
+
+  &__reviewer {
+    font-size: 14px;
+    width: 100%;
+    text-align: end;
+    height: 1.2rem;
+
+    @media (max-width: var.$breakpoint-md) {
+      font-size: 13px;
+    }
+
+    @media (max-width: var.$breakpoint-sm) {
+      font-size: 11px;
+    }
+  }
+
+  &__detail {
+    font-size: 14px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    line-height: 1.2rem;
+    height: 6rem;
+
+    @media (max-width: var.$breakpoint-md) {
+      font-size: 13px;
+    }
+
+    @media (max-width: var.$breakpoint-sm) {
+      font-size: 11px;
+    }
+  }
+
+  &__ismine {
+    color: var.$maincolor;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    z-index: 9;
+  }
 }
 
-.book__ismine {
-  color: var.$maincolor;
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 16px;
-  height: 16px;
-  z-index: 9;
-}
+.float {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
 
-.book__url {
-  color: #1a0dab;
-  text-decoration: underline;
-  font-size: 14px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-  display: block;
-  height: 1.2rem;
-
-  @media (max-width: var.$breakpoint-md) {
-    font-size: 13px;
+  &__button {
+    width: 50px;
+    height: 50px;
+    background-color: var.$maincolor;
+    border-radius: 100%;
   }
 
-  @media (max-width: var.$breakpoint-sm) {
-    font-size: 11px;
-  }
-}
-
-.book__tittle {
-  font-size: 17px;
-  font-weight: bold;
-  height: 1.5rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-
-  @media (max-width: var.$breakpoint-md) {
-    font-size: 15px;
-  }
-
-  @media (max-width: var.$breakpoint-sm) {
-    font-size: 13px;
-  }
-}
-
-.book__detail {
-  font-size: 14px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
-  line-height: 1.2rem;
-  height: 6rem;
-
-  @media (max-width: var.$breakpoint-md) {
-    font-size: 13px;
-  }
-
-  @media (max-width: var.$breakpoint-sm) {
-    font-size: 11px;
-  }
-}
-
-.book__reviewer {
-  font-size: 14px;
-  width: 100%;
-  text-align: end;
-  height: 1.2rem;
-
-  @media (max-width: var.$breakpoint-md) {
-    font-size: 13px;
-  }
-
-  @media (max-width: var.$breakpoint-sm) {
-    font-size: 11px;
+  &__button-icon {
+    width: 50%;
+    height: 50%;
+    color: var.$subcolor;
   }
 }
