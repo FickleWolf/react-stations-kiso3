@@ -57,6 +57,7 @@ function Books(props) {
         },
       })
       .then(() => {
+        console.log("ログの送信に成功しました。");
         navigate(`/detail/${id}`);
       })
       .catch(err => {
