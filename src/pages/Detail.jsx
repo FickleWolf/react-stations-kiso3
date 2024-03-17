@@ -2,9 +2,14 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPenToSquare,
+  faTrashCan,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons';
+import { setBooksAsync } from '../app/slices/booksSlice';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import baseUrl from '../const';
@@ -13,10 +18,12 @@ import './detail.scss';
 function Detail() {
   const { id } = useParams();
   const auth = useSelector(state => state.auth.isSignIn);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [book, setBook] = useState(undefined);
   const [cookies, ,] = useCookies();
   const [errorMessage, setErrorMessge] = useState();
+  const [isDisplyCaution, setIsDisplyCaution] = useState(false);
 
   useEffect(() => {
     const { token } = cookies;
@@ -40,6 +47,24 @@ function Detail() {
       });
   }, []);
 
+  const deleteReview = () => {
+    const { token } = cookies;
+    axios
+      .delete(`${baseUrl}/books/${id}`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        dispatch(setBooksAsync(token));
+        navigate('/');
+      })
+      .catch(err => {
+        setIsDisplyCaution(false);
+        setErrorMessge(`削除に失敗しました。 ${err}`);
+      });
+  };
+
   if (!auth) return <Navigate to="/" />;
   return (
     <div>
@@ -51,6 +76,11 @@ function Detail() {
       ) : null}
       {book ? (
         <main className="detail">
+          <Dialog
+            isDisplyCaution={isDisplyCaution}
+            setIsDisplyCaution={setIsDisplyCaution}
+            deleteReview={deleteReview}
+          />
           <h2>書籍レビュー詳細</h2>
           <div className="detail-body">
             <label className="title-label">
@@ -98,10 +128,22 @@ function Detail() {
                 className="float__button"
                 type="button"
                 onClick={() => navigate(`/edit/${book.id}`)}
+                aria-label="link to edit page"
               >
                 <FontAwesomeIcon
                   icon={faPenToSquare}
                   className="float__button-icon"
+                />
+              </button>
+              <button
+                className="float__button float__button--grey"
+                type="button"
+                onClick={() => setIsDisplyCaution(true)}
+              >
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  className="float__button-icon"
+                  aria-label="delete"
                 />
               </button>
             </div>
@@ -112,6 +154,41 @@ function Detail() {
       )}
     </div>
   );
+}
+
+function Dialog(props) {
+  const { isDisplyCaution, setIsDisplyCaution, deleteReview } = props;
+  if (isDisplyCaution) {
+    return (
+      <div className="dialog">
+        <div className="dialog-body">
+          <button
+            className="dialog-body__icon"
+            type="button"
+            onClick={() => {
+              setIsDisplyCaution(false);
+            }}
+          >
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
+          <h3 className="dialog-body__title">書籍レビューの削除</h3>
+          <p className="dialog-body__text">
+            現在表示されている書籍レビューを削除します。
+            削除した投稿はもとに戻すことはできません。
+          </p>
+          <button
+            className="dialog-body__button"
+            type="button"
+            onClick={() => {
+              deleteReview();
+            }}
+          >
+            削除
+          </button>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Detail;

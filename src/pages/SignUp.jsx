@@ -106,6 +106,8 @@ function SignUp() {
               : '/user_icon_default.png'
           }
           alt="upload-icon"
+          width="120px"
+          height="120px"
         />
         <input
           className="icon-input"

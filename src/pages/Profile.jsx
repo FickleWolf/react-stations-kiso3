@@ -106,62 +106,61 @@ function Profile() {
   };
 
   if (!auth) return <Navigate to="/" />;
+  if (!userInfo) return <Navigate to="/" />;
   return (
     <div>
       <Header />
-      {userInfo ? (
-        <main className="profile">
-          <h2>マイページ</h2>
-          <img className="upload-icon" src={displyIcon()} alt="upload-icon" />
-          <input
-            className="icon-input"
-            type="file"
-            accept=".jpeg,.png"
-            onChange={handleFileChange}
-          />
-          <form
-            className="profile-form"
-            onSubmit={handleSubmit(onUpdataUserInfo)}
-          >
-            <label>
-              ユーザ名
-              <br />
-              <input
-                type="text"
-                className="name-input"
-                {...register('name', {
-                  required: {
-                    value: true,
-                    message: 'ユーザーネームの入力は必須です。',
-                  },
-                  minLength: {
-                    value: 2,
-                    message: 'ユーザーネームは2文字以上で入力してください。',
-                  },
-                  maxLength: {
-                    value: 10,
-                    message: 'ユーザーネームは10文字以内で入力してください。',
-                  },
-                })}
-              />
-              {formState.errors.name ? (
-                <p className="error-message" role="alert">
-                  {formState.errors.name && formState.errors.name.message}
-                </p>
-              ) : null}
-            </label>
-            <button type="submit" className="profile-button">
-              更新
-            </button>
-          </form>
-          <br />
-          {errorMessage !== '' ? (
-            <p className="error-message" role="alert">
-              {errorMessage}
-            </p>
-          ) : null}
-        </main>
-      ) : null}
+      <main className="profile">
+        <h2>マイページ</h2>
+        <img className="upload-icon" src={displyIcon()} alt="upload-icon" />
+        <input
+          className="icon-input"
+          type="file"
+          accept=".jpeg,.png"
+          onChange={handleFileChange}
+        />
+        <form
+          className="profile-form"
+          onSubmit={handleSubmit(onUpdataUserInfo)}
+        >
+          <label>
+            ユーザ名
+            <br />
+            <input
+              type="text"
+              className="name-input"
+              {...register('name', {
+                required: {
+                  value: true,
+                  message: 'ユーザーネームの入力は必須です。',
+                },
+                minLength: {
+                  value: 2,
+                  message: 'ユーザーネームは2文字以上で入力してください。',
+                },
+                maxLength: {
+                  value: 10,
+                  message: 'ユーザーネームは10文字以内で入力してください。',
+                },
+              })}
+            />
+            {formState.errors.name ? (
+              <p className="error-message" role="alert">
+                {formState.errors.name && formState.errors.name.message}
+              </p>
+            ) : null}
+          </label>
+          <button type="submit" className="profile-button">
+            更新
+          </button>
+        </form>
+        <br />
+        {errorMessage !== '' ? (
+          <p className="error-message" role="alert">
+            {errorMessage}
+          </p>
+        ) : null}
+      </main>
     </div>
   );
 }
